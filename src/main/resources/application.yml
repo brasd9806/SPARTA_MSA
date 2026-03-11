@@ -22,9 +22,9 @@ spring:
         # postgreSQL 버전에 맞는 Dialect(방언) 설정
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
-    flyway:
-      enabled: true # Flyway 활성화
-      locations: classpath:db/migration #마이그레이션 파일 위치 설정
+  flyway:
+    enabled: true # Flyway 활성화
+    locations: classpath:db/migration #마이그레이션 파일 위치 설정
 
 # 로깅 레벨 설정
 logging:
