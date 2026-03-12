@@ -1,13 +1,12 @@
 package com.sparta.leehy.lesson.domain.user.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 
@@ -36,22 +35,16 @@ public class User {
     @CreationTimestamp // 데이터가 생성될때 생성된 시점에 딱 알아서 해당시간을 데이터를 넣어줌
     private LocalDateTime createdAt;
 
-    @Column
-    @UpdateTimestamp
-    private LocalDateTime updateAt;
 
-
-    public void setName(String name) {
-        if (StringUtils.hasText(name)) {
-            this.name = name;
-        }
-    }
-
-    public void setEmail(String email) {
+    @Builder
+    public User(
+            String name,
+            String email,
+            String password
+    ) {
+        this.name = name;
         this.email = email;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
     }
+
 }
