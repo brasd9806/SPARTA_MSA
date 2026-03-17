@@ -4,8 +4,6 @@ import com.sparta.leehy.lesson.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 // 기능 정의
 
 // JpaRepository<T, ID>
@@ -20,5 +18,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 //    // User는 엔티티이름을 넣어야한다
 //    Optional<User> findByEmailOrName(@Param("name") String name);
 
-    Optional<User> findById(Long id);
+
 }

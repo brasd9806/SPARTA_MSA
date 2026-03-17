@@ -2,6 +2,7 @@ package com.sparta.leehy.lesson.domain.user.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -20,6 +21,7 @@ public class UserRequest {
     String email;
 
     @NotBlank(message = "비밀번호는 필수입니다.")
+    @Pattern(regexp = "^%", message = "해당 특수문자는 사용할 수 없습니다.")
     String password;
 
 }

@@ -1,9 +1,12 @@
 package com.sparta.leehy.lesson.domain.user.service;
 
-import com.sparta.leehy.lesson.domain.user.entity.User;
+import com.sparta.leehy.lesson.domain.user.dto.request.UserRequest;
+import com.sparta.leehy.lesson.domain.user.dto.response.UserResponse;
 import com.sparta.leehy.lesson.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 //@Component // 해당 어노테이션이 붙은 클래스는 스프링 빈으로 등록됨
 @Service
@@ -13,14 +16,17 @@ public class UserService {
     //    @Autowired // 필드 주입
     private final UserRepository userRepository; // 목표 : 필드에 인스턴스를 주입하는 것
 
-    public void save() {
-        User user = userRepository.findById(1L).get();
+    public List<UserResponse> getAllUsers() {
+        return List.of();
     }
 
-    public void update() {
-
+    public UserResponse getUserById(Long id) {
+        return UserResponse.builder().build();
     }
-    
+
+    public UserResponse create(UserRequest request) {
+        return UserResponse.builder().build();
+    }
 
 }
 

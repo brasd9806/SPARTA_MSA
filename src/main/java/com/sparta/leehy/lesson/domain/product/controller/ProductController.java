@@ -1,6 +1,9 @@
 package com.sparta.leehy.lesson.domain.product.controller;
 
-import com.sparta.leehy.lesson.domain.product.entity.Product;
+import com.sparta.leehy.lesson.domain.product.dto.reponse.ProductResponse;
+import com.sparta.leehy.lesson.domain.product.dto.request.ProductRequest;
+import com.sparta.leehy.lesson.domain.product.service.ProductService;
+import com.sparta.leehy.lesson.global.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,38 +15,95 @@ import java.util.List;
 @RequestMapping("api/products")
 public class ProductController {
 
-//    private final ProductService productService;
+    private final ProductService productService;
 
-    // /api/products/1
-    @GetMapping("{id}")
-    public Product findById(@PathVariable Long id) {
-        return Product.builder().build();
-    }
+//    // /api/products/1
+//    @GetMapping("{id}")
+//    public Product findById(@PathVariable Long id) {
+//        return Product.builder().build();
+//    }
+//
+//    // list로 받고 싶을 때
+//    // API [GET] /api/products?name="전화기"
+//    @GetMapping
+//    public List<Product> searchProducts(@RequestParam(name = "name") String name) {
+//        return List.of();
+//    }
+//
+//    // 상태코드 201 로 받아야함 post는
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED) // <- HTTP 상태코드 지정이 가능하다.! (201)
+//    public Product create(@RequestBody Product product) {
+//        return Product.builder().build();
+//    }
+//
+//    @PutMapping("{id}")
+//    public Product update(@PathVariable Long id, @RequestBody Product product) {
+//        return Product.builder().build();
+//    }
+//
+//    // 상태코드 204로 받아야함 delete는
+//    @DeleteMapping("{id}")
+//    @ResponseStatus(HttpStatus.NO_CONTENT) // 204
+//    public void delete(@PathVariable Long id) {
+//        return;
+//    }
 
-    // list로 받고 싶을 때
-    // API [GET] /api/products?name="전화기"
+
+    // 개선된 ProductController
+//    @GetMapping
+//    public List<ProductResponse> getAllProducts() {
+//        return productService.getAllProducts();
+//    }
+//
+//    @GetMapping("/{id}")
+//    public ProductResponse getProductById(@PathVariable Long id) {
+//        return productService.getProductById(id);
+//    }
+//
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public ProductResponse create(@RequestBody ProductRequest request) {
+//        return productService.create(request);
+//    }
+//
+//    @PutMapping("/{id}")
+//    public ProductResponse update(@PathVariable Long id, @RequestBody ProductRequest request) {
+//        return productService.update(id, request);
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void delete(@PathVariable Long id) {
+//        productService.deleteById(id);
+//    }
+
+
     @GetMapping
-    public List<Product> searchProducts(@RequestParam(name = "name") String name) {
-        return List.of();
+    public ApiResponse<List<ProductResponse>> getAllProducts() {
+        return ApiResponse.ok(productService.getAllProducts());
     }
 
-    // 상태코드 201 로 받아야함 post는
+    @GetMapping("/{id}")
+    public ApiResponse<ProductResponse> getProductById(@PathVariable Long id) {
+        return ApiResponse.ok(productService.getProductById(id));
+    }
+
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED) // <- HTTP 상태코드 지정이 가능하다.! (201)
-    public Product create(@RequestBody Product product) {
-        return Product.builder().build();
+    @ResponseStatus(HttpStatus.CREATED)
+    public ApiResponse<ProductResponse> create(@RequestBody ProductRequest request) {
+        return ApiResponse.ok(productService.create(request));
     }
 
-    @PutMapping("{id}")
-    public Product update(@PathVariable Long id, @RequestBody Product product) {
-        return Product.builder().build();
+    @PutMapping("/{id}")
+    public ApiResponse<ProductResponse> update(@PathVariable Long id, @RequestBody ProductRequest request) {
+        return ApiResponse.ok(productService.update(id, request));
     }
 
-    // 상태코드 204로 받아야함 delete는
-    @DeleteMapping("{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT) // 204
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-        return;
+        productService.deleteById(id);
     }
 
 }
