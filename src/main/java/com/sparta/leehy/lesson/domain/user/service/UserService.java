@@ -29,7 +29,15 @@ public class UserService {
     }
 
     public UserResponse getUserById(Long id) {
-        return UserResponse.builder().build();
+        // 1. DB에서 엔티티 조회
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        // 2. 조회된 엔티티(user)를 매퍼에 넣어서 DTO(UserResponse)로 변환
+        // 여기서 "꺼내온다"는 것은 매퍼의 변환 메서드를 실행한다는 뜻
+        UserResponse response = userMapper.toUserResponse(user);
+
+        return response;
     }
 
     public UserResponse save(UserRequest request) {
