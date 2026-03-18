@@ -1,8 +1,12 @@
 package com.sparta.leehy.lesson.domain.user.repository;
 
 import com.sparta.leehy.lesson.domain.user.entity.User;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 // 기능 정의
 
@@ -11,6 +15,8 @@ import org.springframework.stereotype.Repository;
 // ID: 해당 엔티티의 Primary Key 필드 타입 (예: Long)
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+    
+    Optional<Object> findByEmail(@NotBlank(message = "이메일은 필수입니다.") @Email(message = "유효한 이메일 형식이 아닙니다.") String email);
     // 이 안에 코드가 없어도 아래의 주요 메서드들을 바로 주입받아 사용할 수 있습니다.
 
 //    // SELECT * FROM users WHERE u.email = "입력 값"

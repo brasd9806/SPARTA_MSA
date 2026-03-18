@@ -2,8 +2,13 @@ package com.sparta.leehy.lesson.domain.user.service;
 
 import com.sparta.leehy.lesson.domain.user.dto.request.UserRequest;
 import com.sparta.leehy.lesson.domain.user.dto.response.UserResponse;
+import com.sparta.leehy.lesson.domain.user.entity.User;
+import com.sparta.leehy.lesson.domain.user.mapper.UserMapper;
 import com.sparta.leehy.lesson.domain.user.repository.UserRepository;
+import com.sparta.leehy.lesson.global.exception.DomainException;
+import com.sparta.leehy.lesson.global.exception.DomainExceptionCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +18,11 @@ import java.util.List;
 @RequiredArgsConstructor // final 키워드가 붙은 전역변수를 생성자로 만들어주는 어노테이션
 public class UserService {
 
+
+    private final UserMapper userMapper;
     //    @Autowired // 필드 주입
     private final UserRepository userRepository; // 목표 : 필드에 인스턴스를 주입하는 것
+    private final PasswordEncoder passwordEncoder;
 
     public List<UserResponse> getAllUsers() {
         return List.of();
@@ -24,8 +32,18 @@ public class UserService {
         return UserResponse.builder().build();
     }
 
-    public UserResponse create(UserRequest request) {
-        return UserResponse.builder().build();
+    public UserResponse save(UserRequest request) {
+        // 이메일 중복 체크 로직
+        if (!userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new DomainException(DomainExceptionCode.DUPLICATE_EMAIL);
+        }
+
+        // password 암호화를 위해서
+        String encodePassword = passwordEncoder.encode(request.getPassword());
+
+        User user = userRepository.save(userMapper.toEntity(request, encodePassword));    // id, 자동생성 필드 값이 있는 상태
+
+        return userMapper.toUserResponse(user);
     }
 
 }

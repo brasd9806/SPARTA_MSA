@@ -32,8 +32,8 @@ public class UserController {
     // 회원 생성
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse<UserResponse> create(@RequestBody UserRequest request) {
-        return ApiResponse.ok(userService.create(request));
+    public ApiResponse<UserResponse> save(@RequestBody UserRequest request) {
+        return ApiResponse.ok(userService.save(request));
     }
 
 }
