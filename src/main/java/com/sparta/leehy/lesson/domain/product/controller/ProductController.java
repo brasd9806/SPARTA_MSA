@@ -2,13 +2,14 @@ package com.sparta.leehy.lesson.domain.product.controller;
 
 import com.sparta.leehy.lesson.domain.product.dto.reponse.ProductResponse;
 import com.sparta.leehy.lesson.domain.product.dto.request.ProductRequest;
+import com.sparta.leehy.lesson.domain.product.entity.Product;
 import com.sparta.leehy.lesson.domain.product.service.ProductService;
 import com.sparta.leehy.lesson.global.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController // API 요청을 가장 먼저 받는 클래스로 인식 -> API 스팩이 정의 된 곳
 @RequiredArgsConstructor
@@ -80,8 +81,12 @@ public class ProductController {
 
 
     @GetMapping
-    public ApiResponse<List<ProductResponse>> getAllProducts() {
-        return ApiResponse.ok(productService.getAllProducts());
+    public ApiResponse<Page<Product>> searchProducts(
+            @RequestParam(value = "name", required = false) String name,
+            Pageable pageable // 여기서 page, size, sort 정보를 자동으로 받아옵니다.
+    ) {
+        // 받은 페이징 정보를 서비스에 그대로 전달!
+        return ApiResponse.ok(productService.getAllProducts(name, pageable));
     }
 
     @GetMapping("/{id}")

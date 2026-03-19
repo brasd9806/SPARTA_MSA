@@ -87,6 +87,12 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-tasks.named('compileJava') {
-    options.annotationProcessorPath = configurations.annotationProcessor
+def querydslDir = layout.buildDirectory.dir("generated/querydsl").get().asFile // build폴더에 generated/querydsl 여기 경로에 만들거다!
+
+tasks.withType(JavaCompile).configureEach {
+    options.getGeneratedSourceOutputDirectory().set(file(querydslDir))
+}
+
+clean {
+    delete querydslDir
 }

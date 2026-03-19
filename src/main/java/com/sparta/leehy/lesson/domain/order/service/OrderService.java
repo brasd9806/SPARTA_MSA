@@ -1,16 +1,9 @@
 package com.sparta.leehy.lesson.domain.order.service;
 
-import com.sparta.leehy.lesson.domain.order.dto.request.OrderRequest;
-import com.sparta.leehy.lesson.domain.order.dto.response.OrderResponse;
 import com.sparta.leehy.lesson.domain.order.repository.OrderRepository;
-import com.sparta.leehy.lesson.domain.product.entity.Product;
 import com.sparta.leehy.lesson.domain.product.repository.ProductRepository;
-import com.sparta.leehy.lesson.domain.user.entity.User;
 import com.sparta.leehy.lesson.domain.user.repository.UserRepository;
-import com.sparta.leehy.lesson.global.exception.DomainExceptionCode;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.stereotype.Service;
 
 
@@ -35,6 +28,6 @@ public class OrderService {
 //
 //        // 5. 응답 DTO로 변환하여 반환
 //        return OrderResponse.fromEntity(savedOrder);
-    }
+//    }
 }
 
