@@ -4,7 +4,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
-group = 'com.sparta.leehy'
+group = 'com.sparta.msa'
 version = '0.0.1-SNAPSHOT'
 description = 'sparta msa lesson'
 
@@ -27,6 +27,7 @@ repositories {
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:2023.0.2"
+        mavenBom "org.springframework.ai:spring-ai-bom:1.0.0-M6"
     }
 }
 
@@ -36,7 +37,6 @@ dependencies {
     }
     implementation 'org.springframework.boot:spring-boot-starter-undertow'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
@@ -67,6 +67,8 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
+    implementation 'org.springframework.ai:spring-ai-openai-spring-boot-starter'
+
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
@@ -87,7 +89,7 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-def querydslDir = layout.buildDirectory.dir("generated/querydsl").get().asFile // build폴더에 generated/querydsl 여기 경로에 만들거다!
+def querydslDir = layout.buildDirectory.dir("generated/querydsl").get().asFile
 
 tasks.withType(JavaCompile).configureEach {
     options.getGeneratedSourceOutputDirectory().set(file(querydslDir))
