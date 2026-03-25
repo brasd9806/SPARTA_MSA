@@ -22,6 +22,7 @@ public enum DomainExceptionCode {
     DUPLICATE_EMAIL(HttpStatus.BAD_REQUEST, "이메일이 중복입니다."),
 
     // AI 서비스 관련 에러 코드
+    NOT_FOUND_CONVERSATION(HttpStatus.NOT_FOUND, "채팅방을 찾지 못했습니다."),
     AI_SERVICE_UNAVAILABLE(HttpStatus.SERVICE_UNAVAILABLE, "AI 서비스를 현재 사용할 수 없습니다."),
     AI_RESPONSE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "AI 응답 처리 중 오류가 발생했습니다."),
     AI_QUOTA_EXCEEDED(HttpStatus.TOO_MANY_REQUESTS, "AI 호출 횟수가 초과되었습니다. 잠시 후 다시 시도해주세요.");
