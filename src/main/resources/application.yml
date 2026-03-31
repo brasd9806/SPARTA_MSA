@@ -1,7 +1,11 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
+
   application:
     name: domainnm
 
+  autoconfigure:
     exclude:
       - org.springframework.ai.vectorstore.pgvector.autoconfigure.PgVectorStoreAutoConfiguration
 
@@ -9,7 +13,7 @@ spring:
     openai:
       # 1. API 키: Google AI Studio에서 발급받은 키를 입력합니다.
       # ${GOOGLE_AI_GEMINI_API_KEY}
-      api-key: GOOGLE_AI_GEMINI_API_KEY
+      api-key: AIzaSyAKAdHAz9qW0fzL39UOZtL6ubhMfq-veCQ
       embedding:
         base-url: https://generativelanguage.googleapis.com/v1beta/openai/
         options:
@@ -31,7 +35,7 @@ spring:
     vectorstore:
       pgvector:
         initialize-schema: false          # 직접 SQL로 테이블을 만들었으므로 false 권장
-        dimensions: 3072                  # 임베딩 모델 최적화 차원
+        dimensions: 768                  # 임베딩 모델 최적화 차원
         distance-type: COSINE_DISTANCE    # 유사도 계산 방식 (cosine, l2, inner_product)
         index-type: hnsw                  # 고속 검색을 위한 인덱스 방식
 
