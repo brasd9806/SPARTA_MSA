@@ -13,7 +13,7 @@ spring:
     openai:
       # 1. API 키: Google AI Studio에서 발급받은 키를 입력합니다.
       # ${GOOGLE_AI_GEMINI_API_KEY}
-      api-key: AIzaSyAKAdHAz9qW0fzL39UOZtL6ubhMfq-veCQ
+      api-key: { GOOGLE_AI_GEMINI_API_KEY }
       embedding:
         base-url: https://generativelanguage.googleapis.com/v1beta/openai/
         options:
