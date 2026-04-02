@@ -4,12 +4,14 @@ package com.sparta.leehy.lesson.domain.function.tools;
 import com.sparta.leehy.lesson.domain.function.dto.request.CalculatorRequest;
 import com.sparta.leehy.lesson.domain.function.dto.request.WeatherRequest;
 import com.sparta.leehy.lesson.domain.function.dto.response.CalculatorResponse;
+import com.sparta.leehy.lesson.domain.function.dto.response.CurrentTimeResponse;
 import com.sparta.leehy.lesson.domain.function.dto.response.WeatherResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 @Slf4j
@@ -52,6 +54,18 @@ public class FunctionTools {
 
         return CalculatorResponse.builder()
                 .result(result)
+                .build();
+    }
+
+
+    @Tool(description = "현재 날짜와 시간을 반환합니다")
+    public CurrentTimeResponse getCurrentTime() {
+        log.info("현재 시간 조회");
+
+        LocalDateTime now = LocalDateTime.now();
+        return CurrentTimeResponse.builder()
+                .isoFormat(now.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
+                .readableFormat(now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분")))
                 .build();
     }
 }
