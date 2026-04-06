@@ -26,11 +26,9 @@ public class Product {
     Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "catergory_id", nullable = false)
+    @JoinColumn(name = "category_id", nullable = false)
     Category category;
-
-    @Column
-    String category_id;
+    
 
     @Column(nullable = true)
     String name;

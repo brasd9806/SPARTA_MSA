@@ -37,3 +37,18 @@ CREATE TABLE categories
     created_at TIMESTAMP             DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE product_options
+(
+    id               BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    product_id       BIGINT         NOT NULL,              -- FK: 어떤 상품의 옵션인지
+    name             VARCHAR(255)   NOT NULL,              -- 옵션 이름 (예: 색상, 사이즈)
+    value            VARCHAR(255)   NOT NULL,              -- 옵션 값 (예: 블랙, 105)
+    additional_price DECIMAL(10, 2) NOT NULL DEFAULT 0.00, -- 옵션 선택 시 추가 금액
+    stock            INT            NOT NULL DEFAULT 0,    -- 옵션별 재고 (필요 시)
+    created_at       TIMESTAMP               DEFAULT CURRENT_TIMESTAMP,
+    updated_at       TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    -- 외래키 설정: 상품이 삭제되면 해당 옵션도 삭제되도록 CASCADE 설정 권장
+    CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES products (id) ON DELETE CASCADE
+);

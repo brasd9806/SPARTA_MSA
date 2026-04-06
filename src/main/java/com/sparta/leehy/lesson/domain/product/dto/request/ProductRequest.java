@@ -5,10 +5,12 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -29,4 +31,20 @@ public class ProductRequest {
     @NotNull
     @PositiveOrZero // 값을 양수로 혹은 0으로 제한
     Integer stock;
+
+
+    List<OptionRequest> options;
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @FieldDefaults(level = AccessLevel.PRIVATE)
+    public static class OptionRequest {
+
+        String name;
+
+        BigDecimal additionalPrice;
+
+        Integer stock;
+    }
 }
